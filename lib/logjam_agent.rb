@@ -134,7 +134,7 @@ module LogjamAgent
   end
 
   def self.determine_loaded_exception_classes
-    ObjectSpace.each_object(Class) do |klass|
+    ObjectSpace.each_object(class << self; self; end) do |klass|
       auto_detect_exception(klass) if klass < Exception
     end
     reset_exception_matcher
